@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" 
+				   xmlns:s="library://ns.adobe.com/flex/spark" 
+				   xmlns:fb="http://ns.adobe.com/flashbuilder/2009"
+				   minWidth="80" minHeight="21" 
+				   alpha.disabled="0.5">
+	
+	<fx:Metadata>
+		<![CDATA[ 
+		/** 
+		* @copy spark.skins.spark.ApplicationSkin#hostComponent
+		*/
+		[HostComponent("spark.components.Button")]
+		]]>
+	</fx:Metadata>
+	
+	<!-- states -->
+	<s:states>
+		<s:State name="up" />
+		<s:State name="over" />
+		<s:State name="down" />
+		<s:State name="disabled" />
+	</s:states>
+	
+	
+	<!-- layer 0: fill -->
+	<!--- @private -->
+	<s:Rect id="fill" left="1" right="1" top="1" bottom="1">
+		<s:fill>
+			<s:SolidColor color="{getStyle('backgroundColor')}"/>
+		</s:fill>
+	</s:Rect>
+	
+	<!-- layer 1: gradient fill -->
+	<!--- @private -->
+	<s:Rect id="gradientFill" left="1" right="1" top="1" bottom="1">
+		<s:fill>
+			<s:LinearGradient rotation="90">
+				<s:GradientEntry color="{getStyle('borderColor')}" ratio="0.004" alpha="0"/>
+				<s:GradientEntry color="{getStyle('borderColor')}" ratio="1" alpha="0.2"/>
+			</s:LinearGradient>
+		</s:fill>
+	</s:Rect>
+	
+	<!-- layer 2: border - put on top of the fill so it doesn't disappear when scale is less than 1 -->
+	<!--- @private -->
+	<s:Rect id="border" left="0" right="0" top="0" bottom="0" width="69" height="20">
+		<s:stroke>
+			<s:SolidColorStroke color="{getStyle('borderColor')}"/>
+		</s:stroke>
+	</s:Rect>
+	
+	<!-- layer 3: text -->
+	<!--- @copy spark.components.supportClasses.ButtonBase#labelDisplay  -->
+	<s:Label id="labelDisplay"
+			 textAlign="center"
+			 maxDisplayedLines="1"
+			 horizontalCenter="0" verticalCenter="1" verticalAlign="middle"
+			 top="2" bottom="2"  
+			 fontSize="{getStyle('fontSize')}" color="{getStyle('color')}">
+	</s:Label>
+</s:Skin>

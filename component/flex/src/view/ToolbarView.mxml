@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:SkinnableContainer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx"
+		 xmlns:control="view.control.*" 
+		 xmlns:layout="view.layout.*"
+		 xmlns:utils="utils.*"
+		 preinitialize="preInit(event)">
+	<fx:Script>
+		<![CDATA[
+			import com.flexmonster.pivot.model.export.ExportType;
+			import com.flexmonster.pivot.view.ViewType;
+			import com.flexmonster.pivot.view.charts.ChartType;
+			
+			import localizations.Localization;
+			
+			import mx.collections.ArrayCollection;
+			import mx.events.FlexEvent;
+			
+			import type.ReportType;
+			
+			import view.control.TabMenuList;
+			
+			// Embed icons
+			[Embed(source="/assets/icon/menu/csv.png")] private var iconCSV:Class;
+			[Embed(source="/assets/icon/menu/cube.png")] private var iconOLAP:Class;
+			[Embed(source="/assets/icon/menu/open.png")] private var iconOpen:Class;
+			[Embed(source="/assets/icon/chart/bar.png")] private var iconBar:Class;
+			[Embed(source="/assets/icon/chart/bar_line.png")] private var iconBarLine:Class;
+			[Embed(source="/assets/icon/chart/line.png")] private var iconLine:Class;
+			[Embed(source="/assets/icon/chart/scatter.png")] private var iconScatter:Class;
+			[Embed(source="/assets/icon/chart/pie.png")] private var iconPie:Class;
+			[Embed(source="/assets/icon/chart/bar_stack.png")] private var iconBarStack:Class;
+			[Embed(source="/assets/icon/style/navy.png")] private var iconNavyStyle:Class;
+			[Embed(source="/assets/icon/style/cocoa.png")] private var iconCocoaStyle:Class;
+			[Embed(source="/assets/icon/style/emerald.png")] private var iconEmeraldStyle:Class;
+			[Embed(source="/assets/icon/style/asphalt.png")] private var iconAsphaltStyle:Class;
+			[Embed(source="/assets/icon/style/blueberry.png")] private var iconBlueberryStyle:Class;
+			[Embed(source="/assets/icon/style/raspberry.png")] private var iconRaspberryStyle:Class;
+			[Embed(source="/assets/icon/export/html.png")] private var iconHTML:Class;
+			[Embed(source="/assets/icon/export/img.png")] private var iconImage:Class;
+			[Embed(source="/assets/icon/export/pdf.png")] private var iconPDF:Class;
+			[Embed(source="/assets/icon/export/print.png")] private var iconPrint:Class;
+			[Embed(source="/assets/icon/export/xls.png")] private var iconExcel:Class;
+			[Embed(source="/assets/icon/cbx-selected.png")] public static const iconCbxSelected:Class;
+			[Embed(source="/assets/icon/cbx-unselected.png")] public static const iconCbxUnselected:Class;
+			
+			private var modelLocator:Model = Model.getInstance();
+			private var tabMenuList:TabMenuList = new TabMenuList();
+			private var currentTarget:Object;
+			
+			private static const loc:Localization = new Localization();//for setting proper localization before program run
+			
+			// New Tab
+			[Bindable] private var listConnectTab:ArrayCollection = new ArrayCollection();
+			
+			// Open Tab
+			[Bindable] private var listOpenTab:ArrayCollection =  new ArrayCollection();
+			
+			// Charts Tab
+			[Bindable] private var listChartsTab:ArrayCollection = new ArrayCollection();
+			
+			// Styles Tab
+			[Bindable] private var listStylesTab:ArrayCollection = new ArrayCollection();
+			
+			// Export Tab
+			[Bindable] private var listExportTab:ArrayCollection = new ArrayCollection();
+			
+			// Zoom Tab
+			[Bindable] private var listZoomTab:ArrayCollection = new ArrayCollection();
+			
+			// Format Tab
+			[Bindable] private var listFormatTab:ArrayCollection = new ArrayCollection();
+			
+			
+			private function initLists():void{				
+				// New Tab
+				listConnectTab = new ArrayCollection([
+					{label:Localization.LocalCSV, icon:iconCSV, callbackFunction:modelLocator.newReport, args:ReportType.NEW_LOCAL_CSV},
+					{label:Localization.LocalOCSV, icon:iconCSV, callbackFunction:modelLocator.newReport, args:ReportType.NEW_LOCAL_OCSV},
+					{label:Localization.RemoteCSV, icon:iconCSV, callbackFunction:modelLocator.newReport, args:ReportType.NEW_REMOTE_CSV},
+					{label:Localization.OlapXMLA, icon:iconOLAP, callbackFunction:modelLocator.newReport, args:ReportType.NEW_OLAP}]);
+				
+				// Open Tab
+				listOpenTab = new ArrayCollection([
+					{label:Localization.LocalReport, icon:iconOpen, callbackFunction:modelLocator.openReport, args:ReportType.OPEN_LOCAL},
+					{label:Localization.RemoteReport, icon:iconOpen, callbackFunction:modelLocator.openReport, args:ReportType.OPEN_REMOTE}]);
+				
+				// Charts Tab
+				listChartsTab = new ArrayCollection([
+					{label:Localization.Bar, icon:iconBar, callbackFunction:modelLocator.switchView, args:ChartType.BAR},
+					{label:Localization.Line, icon:iconLine, callbackFunction:modelLocator.switchView, args:ChartType.LINE},
+					{label:Localization.Scatter, icon:iconScatter, callbackFunction:modelLocator.switchView, args:ChartType.SCATTER},
+					{label:Localization.Pie, icon:iconPie, callbackFunction:modelLocator.switchView, args:ChartType.PIE},
+					{label:Localization.BarStack, icon:iconBarStack, callbackFunction:modelLocator.switchView, args:ChartType.BAR_STACK},
+					{label:Localization.BarLine, icon:iconBarLine, callbackFunction:modelLocator.switchView, args:ChartType.BAR_LINE},
+					{divider:true}]);
+				var multipleValuesItem:Object = {label:Localization.MultipleValues, icon:iconCbxUnselected, callbackFunction:modelLocator.chartsMultipleHandler};
+				multipleValuesItem.args = multipleValuesItem;
+				listChartsTab.addItem(multipleValuesItem);
+				
+				// Styles Tab
+				listStylesTab = new ArrayCollection([
+					{label:Localization.Blueberry, icon:iconBlueberryStyle, callbackFunction:modelLocator.setStyle, args: Localization.Blueberry},
+					{label:Localization.Asphalt, icon:iconAsphaltStyle, callbackFunction:modelLocator.setStyle, args: Localization.Asphalt},
+					{label:Localization.Navy, icon:iconNavyStyle, callbackFunction:modelLocator.setStyle, args: Localization.Navy},
+					{label:Localization.Emerald, icon:iconEmeraldStyle, callbackFunction:modelLocator.setStyle, args: Localization.Emerald},
+					{label:Localization.Cocoa, icon:iconCocoaStyle, callbackFunction:modelLocator.setStyle, args: Localization.Cocoa},
+					{label:Localization.Raspberry, icon:iconRaspberryStyle, callbackFunction:modelLocator.setStyle, args: Localization.Raspberry}]);
+				
+				// Export Tab
+				listExportTab = new ArrayCollection([
+					{label:Localization.Print, icon:iconPrint, callbackFunction:modelLocator.exportReport, args:"print"},
+					{label:Localization.ToHTML, icon:iconHTML,  callbackFunction:modelLocator.exportReport, args:ExportType.HTML},
+					{label:Localization.ToCSV, icon:iconCSV,   callbackFunction:modelLocator.exportReport, args:ExportType.CSV},
+					{label:Localization.ToExcel, icon:iconExcel, callbackFunction:modelLocator.exportReport, args:ExportType.EXCEL},
+					{label:Localization.ToImage, icon:iconImage, callbackFunction:modelLocator.exportReport, args:ExportType.IMAGE},
+					{label:Localization.ToPDF, icon:iconPDF,   callbackFunction:modelLocator.exportReport, args:ExportType.PDF}]);
+				
+				// Zoom Tab
+				listZoomTab = new ArrayCollection([
+					{label:"50%",  callbackFunction:modelLocator.zoom, args:50},
+					{label:"75%",  callbackFunction:modelLocator.zoom, args:75},
+					{label:"100%", callbackFunction:modelLocator.zoom, args:100},
+					{label:"125%", callbackFunction:modelLocator.zoom, args:125},
+					{label:"150%", callbackFunction:modelLocator.zoom, args:150},
+					{label:"200%", callbackFunction:modelLocator.zoom, args:200}]);
+				
+				// Format Tab
+				listFormatTab = new ArrayCollection([
+					{label: Localization.FormatCells, callbackFunction:modelLocator.setCellsFormat},
+					{label: Localization.ConditionalFormatting, callbackFunction: modelLocator.setConditionalFormatting}]);
+			}
+			
+			private function preInit(event:FlexEvent):void
+			{
+				this.initLists();
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<s:HGroup gap="1" left="0" paddingBottom="1" paddingTop="2" paddingRight="1" paddingLeft="1">
+		<control:DropdownTab id="tabConnect" label="{Localization.Connect}" dropdownDataProvider="{listConnectTab}" icon="@Embed('/assets/icon/connect.png')"/>
+		<control:DropdownTab id="tabOpen" label="{Localization.Open}" dropdownDataProvider="{listOpenTab}" icon="@Embed('/assets/icon/open.png')"/>
+		<control:ButtonTab id="tabSave" label="{Localization.Save}" click="modelLocator.saveReport()" icon="@Embed('/assets/icon/save.png')"/>
+		<s:Group height="100%">
+			<layout:DottedVLine height="55" top="10"/>
+		</s:Group>
+		<control:ButtonTab id="tabGrid" width="{(AllInOneDemo.LOCALIZATION == Localization.ESP) ? 68 : 56}"   label="{Localization.Grid}" click="modelLocator.switchView(ViewType.GRID)" icon="@Embed('/assets/icon/grid.png')"/>
+		<control:DropdownTab id="tabCharts" label="{Localization.Charts}" dropdownDataProvider="{listChartsTab}" icon="@Embed('/assets/icon/charts.png')"/>
+		<s:Group height="100%">
+			<layout:DottedVLine height="55" top="10"/>
+		</s:Group>
+		<control:DropdownTab id="tabFormat" label="{Localization.Format}" dropdownDataProvider="{listFormatTab}" icon="@Embed('/assets/icon/format.png')"/>
+		<control:ButtonTab id="tabLayout" label="{Localization.Options}" click="{modelLocator.setLayoutOptions()}" icon="@Embed('/assets/icon/options.png')"/>
+		<control:DropdownTab id="tabStyles" label="{Localization.Styles}" dropdownDataProvider="{listStylesTab}" icon="@Embed('/assets/icon/styles.png')"/>
+	</s:HGroup>
+	<s:HGroup gap="1" right="0" paddingBottom="1" paddingTop="2" paddingRight="1" paddingLeft="1">
+		<control:ButtonTab id="tabFields" label="{Localization.Fields}" click="{modelLocator.showFieldsList(!tabFields.selected)}" icon="@Embed('/assets/icon/fields.png')"/>
+		<control:DropdownTab id="tabExport" label="{Localization.Export}" dropdownDataProvider="{listExportTab}" icon="@Embed('/assets/icon/export.png')"/>
+		<control:DropdownTab id="tabZoom" label="{Localization.Zoom}" dropdownDataProvider="{listZoomTab}" icon="@Embed('/assets/icon/zoom.png')"/>
+		<control:ButtonTab id="tabFullScreen" label="{Localization.FullScreen}" click="{modelLocator.fullScreen()}" icon="@Embed('/assets/icon/fullscreen.png')" width="68"/>
+	</s:HGroup>
+</s:SkinnableContainer>

@@ -1,0 +1,32 @@
+﻿<config>
+	<dataSource type="CSV">
+		<filename>../data/data-ch.csv</filename>
+	</dataSource>
+	<defaultSlice>
+		<axes>
+			<axis name="rows">
+				<hierarchy>
+					<dimensionName>[种类]</dimensionName>
+					<hierarchyName>[种类].[种类]</hierarchyName>
+				</hierarchy>
+				<hierarchy>
+					<dimensionName>[Measures]</dimensionName>
+					<hierarchyName>[Measures]</hierarchyName>
+				</hierarchy>
+			</axis>
+			<axis name="columns">
+				<hierarchy>
+					<dimensionName>[目标]</dimensionName>
+					<hierarchyName>[目标].[目标]</hierarchyName>
+				</hierarchy>
+			</axis>
+		</axes>
+		<measures>
+			<measure aggregation="Count">[Measures].[折扣]</measure>
+			<measure>[Measures].[价格]</measure>
+		</measures>
+	</defaultSlice>
+	<params>
+		<param name="localSettingsURL">../localizations/loc-ch.xml</param>
+	</params>
+</config>

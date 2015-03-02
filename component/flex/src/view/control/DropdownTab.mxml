@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+					  xmlns:s="library://ns.adobe.com/flex/spark" 
+					  xmlns:mx="library://ns.adobe.com/flex/mx"
+					  buttonMode="true"
+					  mouseChildren="false"
+					  minWidth="56" minHeight="76"
+					  added="onAdded(event)"
+					  xmlns:control="view.control.*">
+	<fx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			
+			import spark.events.IndexChangeEvent;
+			
+			[Bindable] public var label:String = "Label";
+			[Bindable] public var icon:Object;
+			[Bindable] public var dropdownDataProvider:ArrayCollection = new ArrayCollection();
+			
+			private var model:Model = Model.getInstance();
+			private var dropDownList:TabMenuList = new TabMenuList();
+
+			protected function onAdded(event:Event):void
+			{
+				configUI();
+				setHandlers();
+			}
+			
+			protected function configUI():void
+			{
+				this.dropDownList.dataProvider = dropdownDataProvider;
+				this.dropDownList.visible = false;
+				this.model.application.addElement(dropDownList);
+			}
+			
+			protected function setHandlers():void
+			{
+				this.addEventListener(MouseEvent.ROLL_OVER, onMouseHandler);
+				this.addEventListener(MouseEvent.ROLL_OUT, onMouseHandler);
+				this.dropDownList.addEventListener(MouseEvent.ROLL_OVER, onMouseHandler);
+				this.dropDownList.addEventListener(MouseEvent.ROLL_OUT, onMouseHandler);
+				this.dropDownList.addEventListener(IndexChangeEvent.CHANGE, onDropdownChange);
+			}
+			
+			protected function onMouseHandler(event:MouseEvent):void
+			{
+				switch(event.type)
+				{
+					case MouseEvent.ROLL_OVER:
+					{
+						showDropdown(true);
+						this.currentState = "over";
+						break;
+					}
+					case MouseEvent.ROLL_OUT:
+					{
+						showDropdown(false);
+						this.currentState = "up";
+						break;
+					}
+				}
+			}
+			
+			protected function showDropdown(value:Boolean):void
+			{
+				var point:Point = localToGlobal(new Point(0, 0));
+				this.dropDownList.x = point.x;
+				this.dropDownList.y = point.y + this.height;
+				this.dropDownList.visible = value;
+			}
+			
+			protected function onDropdownChange(event:IndexChangeEvent):void
+			{
+				showDropdown(false);
+				
+				if (dropDownList.selectedIndex == -1) return;
+				
+				var callback:Function = dropDownList.selectedItem.callbackFunction;
+				var args:* = dropDownList.selectedItem.args;
+				dropDownList.selectedIndex = -1;
+				dropDownList.validateNow();
+				
+				if(callback != null)
+				{
+					if(args != null) 
+					{
+						callback(args);
+					}
+					else
+					{
+						callback();
+					}
+				}
+			}
+			
+			public function refreshItem(item:Object):void {
+				var index:int = dropdownDataProvider.getItemIndex(item);
+				if (index >= 0) {
+					dropdownDataProvider[index] = item;
+				}
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<s:states>
+		<s:State name="up"/>
+		<s:State name="over"/>
+	</s:states>
+	
+	<s:Rect id="fill" left="0" right="0" top="0" bottom="0">
+		<s:fill>
+			<s:SolidColor color="{getStyle('rollOverColor')}" alpha="1" alpha.up="0"/>
+		</s:fill>
+	</s:Rect>
+	
+	<s:Image id="imgIcon" horizontalCenter="0" source="{icon}" top="10" mouseEnabled="false"/>
+	<s:Label id="txtLabel" left="0" right="0" top="45" bottom="1" color="{getStyle('color')}" fontSize="11"
+			 mouseEnabled="false" text="{label}" textAlign="center" verticalAlign="middle"/>
+</s:Group>

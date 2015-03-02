@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+				xmlns:s="library://ns.adobe.com/flex/spark" 
+				xmlns:mx="library://ns.adobe.com/flex/mx" 
+				autoDrawBackground="false" xmlns:layout="view.layout.*" xmlns:control="control.*"
+				dataChange="onDataChange(event)">
+	<fx:Script>
+		<![CDATA[
+			import localizations.Localization;
+			
+			import mx.collections.ArrayList;
+			import mx.collections.IList;
+			import mx.events.ColorPickerEvent;
+			import mx.events.FlexEvent;
+			
+			import spark.events.IndexChangeEvent;
+			
+			//data provider for the signs drop down
+			[Bindable]
+			private var conditionsDp:ArrayList = new ArrayList([
+				{label: Localization.LessThan, sign: '<'},
+				{label: Localization.LessThanOrEqualTo, sign: '<='},
+				{label: Localization.GreaterThan, sign: '>'},
+				{label: Localization.GreaterThanOrEqualTo, sign: '>='},
+				{label: Localization.EquelTo, sign: '='},
+				{label: Localization.NotEqualTo, sign: '!='},
+				{label: Localization.Between, sign: '><'}
+			]);
+			
+			[Bindable]
+			private var fontFamiliesDp:ArrayList = new ArrayList(['Arial', 'Verdana', 'Courier New', 
+				'Comic Sans MS', 'Tahoma', 'Impact', 'Trebuchet MS', 'Georgia', 'Times New Roman'
+			]);
+			
+			//data provider for the fonts sizes drop down
+			[Bindable]
+			private var fontSizesDp:ArrayList = new ArrayList([
+				{label: '8px', size: 8},
+				{label: '9px', size: 9},
+				{label: '10px', size: 10},
+				{label: '11px', size: 11},
+				{label: '12px', size: 12},
+				{label: '13px', size: 13},
+				{label: '14px', size: 14}
+			]);
+			
+			override public function set itemIndex(value:int):void
+			{
+				super.itemIndex = value;
+				this.separator.visible = (itemIndex > 0);
+			}
+			
+			protected function onConditionChanged(event:IndexChangeEvent):void
+			{
+				if(event.newIndex == -1) return;
+				
+				this.data.sign = conditionsDropDown.selectedItem.sign;
+				this.currentState = (data.sign == '><') ? 'twoInputs' : 'default';
+			}
+			
+			protected function onMeasureChanged(event:IndexChangeEvent):void
+			{
+				if (event.newIndex != -1) data.measure = measuresDropDown.selectedItem.uniqueName;
+			}
+			
+			protected function onFontFamilyChanged(event:IndexChangeEvent):void
+			{
+				if (event.newIndex != -1) data.trueStyle.fontFamily = fontFamiliesDropDown.selectedItem;
+			}
+			
+			private static function getIndexOf(value:Object, list:IList, fieldName:String):int
+			{
+				for(var i:int = 0; i < list.length; i++)
+				{
+					if(list.getItemAt(i).hasOwnProperty(fieldName) && list.getItemAt(i)[fieldName] == value)
+					{
+						return i;
+					}
+				}
+				
+				return -1;
+			}
+			
+			protected function onFontSizeChanged(event:IndexChangeEvent):void
+			{
+				if (event.newIndex != -1) this.data.trueStyle.fontSize = fontSizesDropDown.selectedItem.size;
+			}
+			
+			protected function onInput1Changed(event:KeyboardEvent):void
+			{
+				if (this.input1.text.length > 0) this.data.value1 = this.input1.text;
+			}
+			
+			protected function onInput2Changed(event:KeyboardEvent):void
+			{
+				if (this.input2.text.length > 0) this.data.value2 = this.input2.text;
+			}
+			
+			protected function onTextColorChanged(event:ColorPickerEvent):void
+			{
+				if (event.index != -1) this.data.trueStyle.color = event.color;
+			}
+			
+			protected function onBgColorChanged(event:ColorPickerEvent):void
+			{
+				if (event.index != -1) this.data.trueStyle.backgroundColor = event.color;
+			}
+			
+			protected function onRemoveBtnClick(event:MouseEvent):void
+			{
+				if (data.removeHandler) data.removeHandler(this.itemIndex);
+			}
+			
+			protected function onDataChange(event:FlexEvent):void
+			{
+				if (!data) return;
+				
+				if (data.measure && data.measures) {
+					this.measuresDropDown.selectedIndex = getIndexOf(data.measure, data.measures, 'uniqueName');
+				} else if (data.measures && data.measures.length > 0) {
+					this.measuresDropDown.selectedIndex = 0;
+					this.data.measure = this.data.measures.getItemAt(0).uniqueName;
+				} else {
+					this.measuresDropDown.enabled = false;
+				}
+				
+				if (data.sign != null && data.sign.length > 0) {
+					this.conditionsDropDown.selectedIndex = getIndexOf(data.sign, conditionsDp, 'sign');
+				} else {
+					this.conditionsDropDown.selectedIndex = 0;
+					this.data.sign = this.conditionsDp.getItemAt(0).sign;
+				}
+				
+				this.currentState = (data.sign != null && data.sign == '><') ? 'twoInputs' : 'default';
+				
+				if (data.trueStyle) 
+				{
+					var trueStyle:Object = data.trueStyle;
+					
+					this.fontFamiliesDropDown.selectedItem = trueStyle.fontFamily ? trueStyle.fontFamily : 'Arial';
+					this.fontSizesDropDown.selectedIndex = trueStyle.fontSize ? getIndexOf(trueStyle.fontSize, fontSizesDp, 'size') : -1;
+					this.textColorPicker.selectedColor = trueStyle.color ? trueStyle.color : 0x000000;
+					this.backgroundColorPicker.selectedColor = trueStyle.backgroundColor ? trueStyle.backgroundColor : 0xFFFFFF;
+				}
+			}
+			
+		]]>
+	</fx:Script>
+	<s:states>
+		<s:State name="default"/>
+		<s:State name="twoInputs"/>
+	</s:states>
+	<layout:HLine id="separator" left="0" right="0" top="0"/>
+	<s:HGroup paddingLeft="10" paddingRight="10" paddingTop="10" paddingBottom="10" gap="10">
+		<s:VGroup width="151" gap="8">
+			<s:DropDownList id="measuresDropDown"
+							labelField="caption"
+							dataProvider="{data.measures}"
+							prompt="{Localization.Value}" width="100%"
+							change="onMeasureChanged(event)"/>
+			<s:DropDownList id="fontFamiliesDropDown"
+							dataProvider="{this.fontFamiliesDp}"
+							selectedIndex="0" width="100%"
+							change="onFontFamilyChanged(event)"/>
+		</s:VGroup>
+		<s:VGroup width="151" gap="8">
+			<s:DropDownList id="conditionsDropDown"
+							dataProvider="{this.conditionsDp}" 
+							change="onConditionChanged(event)" width="100%"/>
+			<s:DropDownList id="fontSizesDropDown"
+							dataProvider="{this.fontSizesDp}"
+							selectedIndex="4" width="100%"
+							change="onFontSizeChanged(event)"/>
+		</s:VGroup>
+		<s:VGroup gap="8">
+			<s:Group>
+				<s:TextInput id="input1" width.default="135" width.twoInputs="52"
+							 height="21" restrict="0-9" focusAlpha="0"
+							 text="{data.value1}" keyUp="onInput1Changed(event)"/>
+				<s:Label x="0" width="32" height="100%" color="#6C6C6C" text="{Localization.And}" textAlign="center"
+						 verticalAlign="middle"
+						 visible.default="false"
+						 visible.twoInputs="true" x.twoInputs="51"/>
+				<s:TextInput id="input2" x="0" width="52" height="21" focusAlpha="0"
+							 text="{data.value2}"
+							 visible.default="false"
+							 visible.twoInputs="true" x.twoInputs="83"
+							 keyUp="onInput2Changed(event)"/>
+			</s:Group>
+			<s:HGroup gap="10">
+				<mx:ColorPicker selectedColor="0x000000" id="textColorPicker"
+								width="21" height="21" change="onTextColorChanged(event)"
+								buttonMode="true" useHandCursor="true"/>
+				<mx:ColorPicker selectedColor="0xffffff" id="backgroundColorPicker"
+								styleName="backgroundColorPicker"
+								width="21" height="21" change="onBgColorChanged(event)"
+								buttonMode="true" useHandCursor="true"/>
+				<s:TextArea id="sampleText" width="73" height="21"
+							color="{textColorPicker.selectedColor}"
+							contentBackgroundColor="{backgroundColorPicker.selectedColor}"
+							editable="false"
+							fontFamily="{(fontSizesDropDown.selectedItem) ? fontFamiliesDropDown.selectedItem : 'Arial'}"
+							fontSize="{(fontSizesDropDown.selectedItem) ? fontSizesDropDown.selectedItem.size : 12}"
+							selectable="false" text="73.93"/>
+			</s:HGroup>
+		</s:VGroup>
+		<s:Group height="100%">
+			<s:Button styleName="removeButton" verticalCenter="0" left="3" buttonMode="true" mouseChildren="false"
+					  click="onRemoveBtnClick(event)"/>
+		</s:Group>
+	</s:HGroup>
+</s:ItemRenderer>

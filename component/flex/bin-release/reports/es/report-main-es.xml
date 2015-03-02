@@ -1,0 +1,36 @@
+﻿<config>
+	<dataSource type="CSV">
+		<filename>../data/data-es.csv</filename>
+	</dataSource>
+	<defaultSlice>
+		<axes>
+			<axis name="rows">
+				<hierarchy>
+					<dimensionName>[Categoría]</dimensionName>
+					<hierarchyName>[Categoría].[Categoría]</hierarchyName>
+				</hierarchy>
+				<hierarchy>
+					<dimensionName>[Color]</dimensionName>
+					<hierarchyName>[Color].[Color]</hierarchyName>
+				</hierarchy>
+			</axis>
+			<axis name="columns">
+				<hierarchy>
+					<dimensionName>[País]</dimensionName>
+					<hierarchyName>[País].[País]</hierarchyName>
+				</hierarchy>
+				<hierarchy>
+					<dimensionName>[Measures]</dimensionName>
+					<hierarchyName>[Measures]</hierarchyName>
+				</hierarchy>
+			</axis>
+		</axes>
+		<measures>
+			<measure>[Measures].[Precio]</measure>
+			<measure aggregation="Count">[Measures].[Cantidad]</measure>
+		</measures>
+	</defaultSlice>
+	<params>
+		<param name="localSettingsURL">../localizations/loc-es.xml</param>
+	</params>	
+</config>

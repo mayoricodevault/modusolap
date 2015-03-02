@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:TitleWindow xmlns:fx="http://ns.adobe.com/mxml/2009"
+			   xmlns:s="library://ns.adobe.com/flex/spark"
+			   xmlns:mx="library://ns.adobe.com/flex/mx"
+			   xmlns:control="view.control.*"
+			   xmlns:layout="view.layout.*"
+			   close="close()"
+			   title="{Localization.ConditionalFormatting}">
+	<fx:Script>
+		<![CDATA[
+			import com.flexmonster.pivot.vo.ConditionValueObject;
+			
+			import localizations.Localization;
+			
+			import mx.collections.ArrayList;
+			import mx.managers.PopUpManager;
+			
+			//data provider for the conditions drop down
+			[Bindable]
+			private var conditionsListDp:ArrayList = new ArrayList();
+			
+			//data provider for the measures drop down
+			[Bindable]
+			private var measuresDp:ArrayList;
+			
+			//following handler is called when condition needs to be added to pivot
+			[Bindable]
+			public var addConditionHandler:Function = function(value:ConditionValueObject):void {};
+			
+			//following handler is called when all conditions needs to be removed from pivot
+			[Bindable]
+			public var removeAllHandler:Function = function():void {};
+			
+			//call this when you need to update your changes
+			[Bindable]
+			public var refreshHandler:Function = function():void {};
+			
+			private var allMeasuresItem:Object = {
+				caption: Localization.AllValues,
+				uniqueName: ""
+			};
+			
+			public function set measures(measuresList:ArrayList):void
+			{
+				measuresList.addItemAt(allMeasuresItem, 0);
+				this.measuresDp = measuresList;
+			}
+			
+			public function get measures():ArrayList
+			{
+				return this.measuresDp;
+			}
+			
+			public function addCondition(condition:Object = null):void
+			{
+				var isNew:Boolean = (condition == null);
+				if (isNew) {
+					condition = {
+						isTotal: -1,
+							trueStyle: {
+								fontFamily: 'Arial',
+								fontSize: 12,
+								color: 0x000000,
+								backgroundColor: 0xFFFFFF
+							}
+					};
+				}
+				
+				condition.measures = this.measures;
+				condition.removeHandler = this.removeCondition;
+				
+				this.conditionsListDp.addItem(condition);
+				if (isNew) this.conditionsList.callLater(this.conditionsList.ensureIndexIsVisible, [conditionsListDp.length - 1]);
+			}
+			
+			/**
+			 * @private
+			 **/
+			
+			//creates formula string from given values
+			private static function createFormula(sign:String, value1:String, value2:String = ''):String
+			{
+				var formula:String = '';
+				var firstValueEmpty:Boolean = (value1.length == 0);
+				var secondValueEmpty:Boolean = (value2.length == 0);
+				var isBetween:Boolean = (sign == '><' || sign == '<>');
+				
+				if(firstValueEmpty || (isBetween && secondValueEmpty)) {
+					return formula;
+				}
+				
+				if(isBetween && !secondValueEmpty) {
+					formula = "if(AND(#value > " + value1 + ", #value < " + value2 + "), 'trueStyle')";
+				}
+				else {
+					formula = "if(#value " + sign + ' ' + value1 + ", 'trueStyle')";
+				}
+				
+				return formula;
+			}
+			
+			//sets formula field for the condition object 
+			private static function setFormula(condition:Object):Object
+			{
+				if(condition.sign && 
+					condition.value1) 
+				{
+					condition.formula = 
+						createFormula(
+							condition.sign,
+							condition.value1,
+							(condition.value2) ? condition.value2 : ''
+						);
+				}
+				
+				return condition;
+			}
+			
+			private function onApplyClick(event:MouseEvent):void
+			{
+				this.removeAllHandler();
+				var currentCondition:Object;
+				for(var i:int = 0; i < conditionsListDp.length; i++)
+				{
+					currentCondition = setFormula(conditionsListDp.getItemAt(i));
+					if(checkCondition(currentCondition)) {
+						var conditionVO:ConditionValueObject = ConditionValueObject.fromObject(currentCondition);
+						this.addConditionHandler(conditionVO);
+					}
+				}
+				this.close();
+				this.refreshHandler();
+			}
+			
+			private function onAddClick(event:MouseEvent):void
+			{
+				this.addCondition();
+			}
+			
+			private static function checkCondition(condition:Object):Boolean
+			{
+				return (
+					(condition.hasOwnProperty('measure')) &&
+					(condition.hasOwnProperty('formula') &&
+						condition.formula.length > 0) &&
+					(condition.hasOwnProperty('trueStyle')) &&
+					(condition.trueStyle.hasOwnProperty('fontFamily')) &&
+					(condition.trueStyle.hasOwnProperty('fontSize')) &&
+					(condition.trueStyle.hasOwnProperty('color')) && 
+					(condition.trueStyle.hasOwnProperty('backgroundColor'))
+					);
+			}
+			
+			private function removeCondition(idx:uint):void
+			{
+				if (idx > this.conditionsListDp.length - 1) return;
+				
+				this.conditionsListDp.removeItemAt(idx);
+			}
+			
+			private function close():void
+			{
+				this.clear();
+				PopUpManager.removePopUp(this);
+			}
+			
+			private function clear():void
+			{
+				conditionsListDp.removeAll();
+				measuresDp.removeAll();
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<s:VGroup left="1" right="1" paddingBottom="5" paddingLeft="0" paddingRight="0" paddingTop="5">
+		<s:List id="conditionsList" itemRenderer="view.renderer.ConditionItemRenderer" borderVisible="false"
+				dataProvider="{conditionsListDp}" horizontalScrollPolicy="off" minWidth="500">
+			<s:layout>
+				<s:VerticalLayout requestedRowCount="{conditionsListDp.length > 3 ? 3 : conditionsListDp.length}" gap="-1"/>
+			</s:layout>
+		</s:List>
+		<s:Group width="100%">
+			<s:Button id="addBtn" label="{Localization.AddCondition}" click="onAddClick(event)"
+					  useHandCursor="true" buttonMode="true" styleName="linkButton" left="10"/>
+		</s:Group>
+	</s:VGroup>
+	
+	<s:controlBarContent>
+		<s:Button id="applyBtn" label="{Localization.Apply}" click="onApplyClick(event)"
+				  useHandCursor="true" buttonMode="true"/>
+		<s:Button id="cancelBtn" label="{Localization.Cancel}" click="close()"
+				  useHandCursor="true" buttonMode="true"/>
+	</s:controlBarContent>
+	
+</s:TitleWindow>

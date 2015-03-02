@@ -1,0 +1,94 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Flexmonster Pivot Component All-In-One Demos</title>
+	<link href="../assets/css/style.css" rel="stylesheet" type="text/css" />
+</head>
+<body onload="onLoad()">
+	<!-- HEADER -->
+	<div id="header">
+		<a id="logo" href="http://www.flexmonster.com/" target="_blank"></a>
+		<div id="header-title"></div>
+	</div>
+   
+	<!-- CONTENT CONTAINER -->
+	<div id="content-container">
+		<table id="content-table">
+			<tr>
+				<!-- CONTENT -->
+				<td id="content">
+					<div class="demo-title" id="demoTitle">All-In-One Demo<span>Reveal full API functionality</span></div>
+					<div class="api-tabs-area">
+						<ul class="fm-api-tabs">
+							<li onclick="onApiTabSelected(this)" id="html5_api" class="active"><span>HTML5 API</span></li>
+							<li onclick="onApiTabSelected(this)" id="flash_api"><span>Flash/JS API</span></li>
+							<li onclick="onApiTabSelected(this)" id="flex_api"><span>Flex API</span></li>
+						</ul>
+					</div>
+					<div class="demo-area">
+							<iframe id="pivotDemo" frameborder="0" scrolling="no" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+							<div class="links-area">
+								<a href="./" id="openFolder" target="_blank"><span>Open source folder</span></a>
+								<a href="http://www.flexmonster.com/flash/help/index.html?file=Contents/js_api.html" id="docs" target="_blank"><span>See documentation</span></a>
+							</div>
+					</div>
+				</td>
+				<!-- CONTENT end -->
+			</tr>
+		</table>
+	</div>
+	<!-- CONTAINER end -->
+	<img src='http://www.flexmonster.com/icons.ashx?r=demo-download-pack-01' style="display:none;">
+</body>
+<script type="text/javascript">
+	var links = {
+		flash_api: 'flash-js/index.html',
+		html5_api: 'html5/index.html',
+		flex_api: 'flex/bin-release/AllInOneDemo.html'
+	};
+	var docsLinks = {
+		flash_api: 'http://www.flexmonster.com/flash/help/index.html?file=Contents/js_api.html',
+		html5_api: 'http://www.flexmonster.com/flash/help/index.html?file=Contents/js_api.html',
+		flex_api: 'http://www.flexmonster.com/flash/help/index.html?file=Contents/FlexAPI/FlexPivotComponent.html'
+	};
+
+	var tabsArea = document.getElementById('apiTabsList');
+	var tabFirst = document.getElementById('flash_api');
+	var tabSecond = document.getElementById('html5_api');
+	var tabThird = document.getElementById('flex_api');
+
+	var selectedTab = document.getElementById('html5_api');
+	var pivotFrame = document.getElementById('pivotDemo');
+	var openFolderLink = document.getElementById('openFolder');
+	var docLink = document.getElementById('docs');
+
+	function onApiTabSelected(tab) {
+		if(tab && tab.className.indexOf('active') != -1) return;
+			
+		//make previously selected tab inactive
+		selectedTab.className = '';
+		tab.className = 'active';
+		selectedTab = tab;
+		
+		//load demo to the iframe
+		var currentLink = links[selectedTab.id];
+		var currentDocsLink = docsLinks[selectedTab.id];
+		pivotFrame.src = currentLink;
+		setFolderLink(currentLink);
+		setDocsLink(currentDocsLink);
+	}
+
+	function setFolderLink(link) {
+		openFolderLink.href = (link.indexOf('flex') == -1) ? link.substr(0, link.lastIndexOf('/')) : (link.substr(0, link.lastIndexOf('/bin-release/')) + '/src/');
+	}
+
+	function setDocsLink(link) {
+		docLink.href = link;
+	}
+
+	function onLoad() {
+		pivotFrame.src = links['html5_api'];
+	}
+</script>
+</html>

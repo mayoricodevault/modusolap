@@ -1,0 +1,183 @@
+﻿<localSettings>
+
+	<fieldsList>
+		<hierarchyBox>Selecione os campos</hierarchyBox>
+		<filterBox>Filtros</filterBox>
+		<rowBox>Campos da Linha</rowBox>
+		<columnBox>Campos da Coluna</columnBox>
+		<measureBox>Valores</measureBox>
+		<values>Valores</values>
+		<addCalculatedMeasure>Adicionar valor calculado</addCalculatedMeasure>
+	</fieldsList>
+	
+	<filter>
+		<all>Tudo</all>
+		<multipleItems>Múltiplos Itens</multipleItems>
+		<selectAll>Selecionar tudo</selectAll>
+		<selectAllResults>Selecionar todos os resultados</selectAllResults>
+		<top>Início</top>
+		<bottom>Fim</bottom>
+		<ascSort>Az</ascSort>
+		<descSort>zA</descSort>
+		<topX>Primeiros X</topX>
+		<measuresPrompt>Selecione um campo</measuresPrompt>
+		<search>Pesquisar</search>
+		<amountSelected>{0} de {1} selecionados</amountSelected>
+	</filter>
+	
+	<calculatedView>
+		<measureBox>Arraste campos para a Fórmula</measureBox>
+		<measureName>Nome do Campo</measureName>
+		<formula>Fórmula</formula>
+	</calculatedView>
+
+	<buttons>
+		<ok>OK</ok>
+		<cancel>Cancelar</cancel>
+		<save>Salvar</save>
+		<clear>Limpar</clear>
+		<select>Procurar...</select>
+	</buttons>
+	
+	<grid>
+		<total>Total</total><!--total is for OLAP data sources only-->
+		<totals>Totais</totals>
+		<grandTotal>Total geral</grandTotal>
+	</grid>
+	
+	<charts>
+		<showLegend>Mostrar Legenda</showLegend>
+		<hideLegend>Esconder Legenda</hideLegend>
+	</charts>
+	
+	<tooltips>
+		<row>Linha:</row>
+		<column>Coluna:</column>
+		<headerResize>Arraste para redimensionar</headerResize>
+		<headerFit>Dê um duplo clique para ajustar</headerFit>
+		<filterIcon>Clique para filtrar</filterIcon>
+		<filtered>Filtrado</filtered>
+		<expandIcon>Clique para ampliar</expandIcon>
+		<collapseIcon>Clique para fechar</collapseIcon>
+		<sortIcon>Click para ordernar por ordem decrescente</sortIcon>
+		<sortedDescIcon>Click para ordernar por ordem crescente</sortedDescIcon>
+		<sortedAscIcon>Click para ordernar por ordem decrescente</sortedAscIcon>
+	</tooltips>
+	
+	<aggregations>
+		<sum>
+			<caption>Soma</caption>
+			<totalCaption><![CDATA[Soma de {0}]]></totalCaption>
+			<grandTotalCaption><![CDATA[Soma total de {0}]]></grandTotalCaption>
+		</sum>
+		<count>
+			<caption>Contagem</caption>
+			<totalCaption><![CDATA[Contagem de {0}]]></totalCaption>
+			<grandTotalCaption><![CDATA[Contagem total de {0}]]></grandTotalCaption>
+		</count>
+		<distinctCount>
+			<caption>Contagem Distinta</caption>
+			<totalCaption><![CDATA[Contagem distinta de {0}]]></totalCaption>
+			<grandTotalCaption><![CDATA[Total Contagem distinta de {0}]]></grandTotalCaption>
+		</distinctCount>
+		<average>
+			<caption>Média</caption>
+			<totalCaption><![CDATA[Média de {0}]]></totalCaption>
+			<grandTotalCaption><![CDATA[Média total de {0}]]></grandTotalCaption>
+		</average>
+		<product>
+			<caption>Produto</caption>
+			<totalCaption><![CDATA[Produto de {0}]]></totalCaption>
+			<grandTotalCaption><![CDATA[Produto total de {0}]]></grandTotalCaption>
+		</product>
+		<min>
+			<caption>Mínimo</caption>
+			<totalCaption><![CDATA[Mínimo de {0}]]></totalCaption>
+			<grandTotalCaption><![CDATA[Mínimo total de {0}]]></grandTotalCaption>
+		</min>
+		<max>
+			<caption>Máximo</caption>
+			<totalCaption><![CDATA[Máximo de {0}]]></totalCaption>
+			<grandTotalCaption><![CDATA[Máximo total de {0}]]></grandTotalCaption>
+		</max>
+		<percent>
+			<caption>Por cento</caption>
+			<totalCaption><![CDATA[Por cento de {0}]]></totalCaption>
+			<grandTotalCaption><![CDATA[Porcentagem total de {0}]]></grandTotalCaption>
+		</percent>
+		<percentOfColumn>
+			<caption>Por cento de Coluna</caption>
+			<totalCaption><![CDATA[Por cento de Coluna {0}]]></totalCaption>
+			<grandTotalCaption><![CDATA[Porcentagem total de Coluna {0}]]></grandTotalCaption>
+		</percentOfColumn>
+		<index>
+			<caption>Índice</caption>
+			<totalCaption><![CDATA[Índice de {0}]]></totalCaption>
+			<grandTotalCaption><![CDATA[Índice de {0}]]></grandTotalCaption>
+		</index>
+	</aggregations>
+	
+	<messages>
+		<error>Erro!</error>
+		<warning>Aviso</warning>
+		<browse>Procurar</browse>
+		<confirmation>Confirmação</confirmation>
+		
+		<loading>Carregando...</loading>
+		<loadingConfiguration>Carregando configuração...</loadingConfiguration>
+		<loadingData>Carregando dados...</loadingData>
+		<waiting>{0} seg</waiting>
+		<progress><![CDATA[{0}К de {1}К]]></progress>
+		<progressUnknown><![CDATA[carregado {0}К]]></progressUnknown>
+		<analyzing>Analisando os dados...</analyzing>
+		<analyzingProgress><![CDATA[{0} registros de {1} ({2}%)]]></analyzingProgress>
+		<loadingDimensions>Carregando dimensões...</loadingDimensions>
+		<loadingHierarchies>Carregando hierarquias...</loadingHierarchies>
+		<loadingMeasures>Carregando medidas...</loadingMeasures>
+		<loadingMembers>Carregando membros...</loadingMembers>
+		<loadingLevels>Carregando níveis...</loadingLevels>
+		<loadingSkin><![CDATA[Carregando estilo... {0}%]]></loadingSkin>
+		<fullscreen>Abrir tabela dinâmica em tela cheia?</fullscreen>
+		<exportComplete>Exportação de dados é criado, por favor, clique em "Salvar" para salvar os dados.</exportComplete>
+		<exportProgress>Exportação em andamento...</exportProgress>
+		<generatingPDF>Gerando PDF</generatingPDF>
+		<pleaseWait>Por favor, aguarde.</pleaseWait>
+		<pagesWereGenerated>páginas foram geradas.</pagesWereGenerated>
+		<uploading>Enviando para o servidor...</uploading>
+		<cantSaveFile>Erro: Não é possível salvar o arquivo.</cantSaveFile>
+		<cantSaveToClipboard>Erro: Não é possível escrever para o clipboard.</cantSaveToClipboard>
+		<selectFile>Selecionar arquivo .CSV para carregar</selectFile>
+		<saveReportToFile>O relatório está pronto para ser salvo no arquivo. Clique no botão “Salvar" para salvar o relatório.</saveReportToFile>
+		<loadReportFromFile>Selecionar arquivo de relatório a ser carregado</loadReportFromFile>
+		<inputNewName>Entrada de novo nome</inputNewName>
+		<inputReportName>Por favor, insira o nome do relatório.</inputReportName>
+	</messages>
+	
+	<date>
+		<year>Ano</year>
+		<quarter>Trimestre</quarter>
+		<month>Mês</month>
+		<day>Dia</day>
+	</date>
+	<quarters>
+		<q1>T1</q1>
+		<q2>T2</q2>
+		<q3>T3</q3>
+		<q4>T4</q4>
+	</quarters>
+	<months>
+		<january>Janeiro</january>
+		<february>Fevereiro</february>
+		<march>Março</march>
+		<april>Abril</april>
+		<may>Maio</may>
+		<june>Junho</june>
+		<july>Julho</july>
+		<august>Agosto</august>
+		<september>Setembro</september>
+		<october>Outubro</october>
+		<november>Novembro</november>
+		<december>Dezembro</december>
+	</months>
+	
+</localSettings>

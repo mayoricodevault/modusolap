@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+				xmlns:s="library://ns.adobe.com/flex/spark" 
+				xmlns:mx="library://ns.adobe.com/flex/mx"
+				buttonMode="true" mouseChildren="false">
+	<s:states>
+		<s:State name="normal" />
+		<s:State name="hovered" />
+		<s:State name="selected" />
+	</s:states>
+	<s:HGroup paddingLeft="{data.icon ? 0 : 5}" paddingRight="8" gap="5" verticalAlign="middle">
+		<s:Image id="imgIcon" height="30" smooth="true" source="{data.icon}" includeInLayout="{data.icon}"/>
+		<s:Label height="30" text="{data.label}" verticalAlign="middle"/>
+	</s:HGroup>
+</s:ItemRenderer>

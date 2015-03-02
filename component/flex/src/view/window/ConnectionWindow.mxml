@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:TitleWindow xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" title="{Localization.OlapConnectionTool}"
+		 close="close()">
+	
+	<fx:Script>
+		<![CDATA[
+			import com.flexmonster.pivot.FlexPivotComponent;
+			import com.flexmonster.pivot.vo.ConnectionParams;
+			
+			import localizations.Localization;
+			
+			import mx.collections.ArrayList;
+			import mx.controls.Alert;
+			import mx.managers.PopUpManager;
+			
+			import spark.events.IndexChangeEvent;
+			
+			public var pivot:FlexPivotComponent;
+			public var onClose:Function = function():void{ close(); };
+			private var pumpURL:String = "";
+			private var dataSourceInfo:String = "";
+			private var catalog:String = "";
+			private var cube:String = "";
+			private var providerName:String = "";
+			
+			private function testUrlButton_clickHandler(event:MouseEvent):void
+			{
+				pumpURL = this.pumpUrlInput.text;
+				pivot.getXMLADataSources(pumpURL, onDataSourcesInfoLoaded,
+					cbxCredentials.selected ? inpUsername.text : null,
+					cbxCredentials.selected ? inpPassword.text : null
+				);
+			}
+			
+			private function disableAll():void
+			{
+				if (this.dataSourceInfoComboBox.enabled) this.dataSourceInfoComboBox.enabled = false;
+				this.dataSourceInfoComboBox.dataProvider = null;
+				if (this.catalogComboBox.enabled) this.catalogComboBox.enabled = false;
+				this.catalogComboBox.dataProvider = null;
+				if (this.cubeComboBox.enabled) this.cubeComboBox.enabled = false;
+				this.catalogComboBox.dataProvider = null;
+			}
+			
+			private function onProviderNameLoaded(providerName:String):void
+			{
+				this.providerName = providerName;
+				var connectionParams: ConnectionParams = new ConnectionParams();
+				connectionParams.dataSourceType = this.providerName;
+				connectionParams.proxyUrl = this.pumpURL;
+				connectionParams.dataSourceInfo = 'Provider=' + this.providerName + '; DataSource=' + this.dataSourceInfo;
+				connectionParams.catalog = this.catalog;
+				connectionParams.cube = this.cube;
+				connectionParams.username = cbxCredentials.selected ? inpUsername.text : null;
+				connectionParams.password = cbxCredentials.selected ? inpPassword.text : null;
+				this.pivot.connectTo(connectionParams);
+				this.onClose();
+			}
+			
+			private function onCubesLoaded(cubes:*):void
+			{
+				if(cubes is Array)
+				{
+					this.cubeComboBox.dataProvider = new ArrayList(cubes);
+					this.cubeComboBox.enabled = true;
+				}
+				else if(cubes.message)
+				{
+					this.applyButton.enabled = false;
+					this.disableAll();
+					Alert.show(cubes.message);
+				}
+			}
+			
+			private function onCatalogsLoaded(catalogs:*):void
+			{
+				if(catalogs is Array)
+				{
+					this.catalogComboBox.dataProvider = new ArrayList(catalogs);
+					this.catalogComboBox.enabled = true;
+				}
+				else if(catalogs.message)
+				{
+					this.disableAll();
+					Alert.show(catalogs.message);
+				}
+			}
+			
+			private function onDataSourcesInfoLoaded(dataSources:*):void
+			{
+				if(dataSources is Array)
+				{
+					this.dataSourceInfoComboBox.dataProvider = new ArrayList(dataSources);
+					this.dataSourceInfoComboBox.enabled = true;
+				}
+				else if(dataSources.message)
+				{
+					this.disableAll();
+					Alert.show(dataSources.message);
+				}
+			}
+			
+			private function dataSourceInfoComboBox_changeHandler(event:IndexChangeEvent):void
+			{
+				this.dataSourceInfo = (this.dataSourceInfoComboBox.selectedItem as String);
+				pivot.getXMLACatalogs(pumpURL, this.dataSourceInfo, onCatalogsLoaded,
+					cbxCredentials.selected ? inpUsername.text : null,
+					cbxCredentials.selected ? inpPassword.text : null
+				);
+			}
+			
+			private function catalogComboBox_changeHandler(event:IndexChangeEvent):void
+			{
+				catalog = (this.catalogComboBox.selectedItem as String);
+				pivot.getXMLACubes(pumpURL,
+					dataSourceInfo,
+					catalog,
+					onCubesLoaded,
+					cbxCredentials.selected ? inpUsername.text : null,
+					cbxCredentials.selected ? inpPassword.text : null
+				);
+			}
+			
+			private function submitButton_clickHandler(event:MouseEvent):void
+			{
+				this.cube = (this.cubeComboBox.selectedItem as String);
+				pivot.getXMLAProviderName(pumpURL, onProviderNameLoaded, 
+					cbxCredentials.selected ? inpUsername.text : null,
+					cbxCredentials.selected ? inpPassword.text : null
+				);
+			}
+			
+			public function close():void
+			{
+				PopUpManager.removePopUp(this);
+			}
+			
+			private function cubeComboBox_changeHandler(event:IndexChangeEvent):void
+			{
+				this.applyButton.enabled = true;
+			}
+			
+			protected function cbxCredentials_changeHandler(event:Event):void
+			{
+				currentState = cbxCredentials.selected ? "withCredentials" : "default"
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<s:states>
+		<s:State name="default"/>
+		<s:State name="withCredentials"/>
+	</s:states>
+	
+	<s:VGroup gap="10" paddingBottom="10" paddingLeft="10" paddingRight="10" paddingTop="20">
+		<s:VGroup gap="0">
+			<s:Label width="295" text="{Localization.ProxyUrl}"/>
+			<s:HGroup gap="-1">
+				<s:TextInput id="pumpUrlInput" width="236"
+							 text="http://olap.flexmonster.com/olap/msmdpump.dll"/>
+				<s:Button id="testUrlButton" width="60" label="{Localization.Connect}"
+						  click="testUrlButton_clickHandler(event)" styleName="halfButton"
+						  useHandCursor="true" buttonMode="true"/>
+			</s:HGroup>
+			<s:HGroup gap="0" verticalAlign="middle">
+				<s:CheckBox id="cbxCredentials" change="cbxCredentials_changeHandler(event)"/>
+				<s:Label text="{Localization.Credentials}"/>
+			</s:HGroup>
+			
+			<s:VGroup includeIn="withCredentials" gap="2">
+				<s:HGroup gap="5" verticalAlign="middle">
+					<s:Label text="{Localization.Username + ':'}" minWidth="65"/>
+					<s:TextInput id="inpUsername"/>
+				</s:HGroup>
+				<s:HGroup gap="5" verticalAlign="middle">
+					<s:Label text="{Localization.Password + ':'}" minWidth="65"/>
+					<s:TextInput id="inpPassword" displayAsPassword="true"/>
+				</s:HGroup>
+			</s:VGroup>
+			
+		</s:VGroup>
+		<s:VGroup gap="5">
+			<s:Label width="295" text="{Localization.DataSourceInfo}"/>
+			<s:DropDownList id="dataSourceInfoComboBox" prompt="{Localization.SelectDataSource}"
+							width="295" enabled="false"
+							change="dataSourceInfoComboBox_changeHandler(event)"/>
+		</s:VGroup>
+		<s:VGroup gap="5">
+			<s:Label width="295" text="{Localization.Catalog}"/>
+			<s:DropDownList id="catalogComboBox" prompt="{Localization.SelectCatalog}"
+							width="295" enabled="false"
+							change="catalogComboBox_changeHandler(event)"/>
+		</s:VGroup>
+		<s:VGroup gap="5">
+			<s:Label width="295" text="{Localization.Cube}"/>
+			<s:DropDownList id="cubeComboBox" prompt="{Localization.SelectCube}" width="295"
+							enabled="false"
+							change="cubeComboBox_changeHandler(event)"/>
+		</s:VGroup>
+	</s:VGroup>
+	<s:controlBarContent>
+		<s:Button id="applyButton" label="{Localization.OK}" useHandCursor="true" buttonMode="true" enabled="false" click="submitButton_clickHandler(event)"/>
+		<s:Button id="cancelButton" label="{Localization.Cancel}" useHandCursor="true" buttonMode="true" click="onClose();"/>
+	</s:controlBarContent>
+</s:TitleWindow>

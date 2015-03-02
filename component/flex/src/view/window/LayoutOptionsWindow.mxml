@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:TitleWindow xmlns:fx="http://ns.adobe.com/mxml/2009"
+		 xmlns:s="library://ns.adobe.com/flex/spark"
+		 xmlns:mx="library://ns.adobe.com/flex/mx"
+		 width="275" title="{Localization.LayoutOptions}"
+		 close="close()">
+	<fx:Script>
+		<![CDATA[
+			import localizations.Localization;
+			
+			import mx.collections.ArrayCollection;
+			import mx.events.FlexEvent;
+			import mx.managers.PopUpManager;
+			
+			public var onApplyCallback:Function;
+			
+			private function onCloseClick(event:MouseEvent):void
+			{
+				close();
+			}
+			
+			private function onApplyClick(event:MouseEvent):void
+			{
+				onApplyCallback(grandTotalsGroup.selectedValue, totalsGroup.selectedValue);
+				close();
+			}
+
+			public function set showGrandTotals(value:String):void
+			{
+				grandTotalsGroup.selectedValue = value;
+			}
+
+			public function set showTotals(value:Boolean):void
+			{
+				totalsGroup.selectedValue = value;
+			}
+			
+			public function close():void
+			{
+				PopUpManager.removePopUp(this);
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		<s:RadioButtonGroup id="grandTotalsGroup"/>
+		<s:RadioButtonGroup id="totalsGroup"/>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<s:VGroup paddingBottom="10" paddingLeft="10" paddingRight="10"
+			  paddingTop="20" gap="10">
+		<s:VGroup gap="5">
+			<s:Label text="{Localization.GrandTotals}" styleName="header-label"/>
+			<s:VGroup gap="5" paddingLeft="5">
+				<s:RadioButton value="off" 	   label="{Localization.OffForRowsAndColumns}" groupName="grandTotalsGroup"/>
+				<s:RadioButton value="on" 	   label="{Localization.OnForRowsAndColumns}" groupName="grandTotalsGroup"/>
+				<s:RadioButton value="rows"    label="{Localization.OnForRowsOnly}" groupName="grandTotalsGroup"/>
+				<s:RadioButton value="columns" label="{Localization.OnForColumnsOnly}" groupName="grandTotalsGroup"/>
+			</s:VGroup>
+		</s:VGroup>
+		<s:VGroup gap="5">
+			<s:Label text="{Localization.Subtotals}" styleName="header-label"/>
+			<s:VGroup gap="5" paddingLeft="5">
+				<s:RadioButton value="{false}" label="{Localization.DoNotShowSubtotals}" groupName="totalsGroup"/>
+				<s:RadioButton value="{true}"  label="{Localization.ShowAllSubtotals}" groupName="totalsGroup"/>
+			</s:VGroup>
+		</s:VGroup>
+	</s:VGroup>
+	
+	<s:controlBarContent>
+		<s:Button label="{Localization.Apply}" buttonMode="true" click="onApplyClick(event)"/>
+		<s:Button label="{Localization.Cancel}" buttonMode="true" click="onCloseClick(event)"/>
+	</s:controlBarContent>
+</s:TitleWindow>

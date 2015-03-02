@@ -92,7 +92,7 @@ class LoadExcel {
     
     $db=DB::connection();
     //$dom = new DomDocument();
-    $schemaPath='/home/david/tomcat/webapps/mondrian/WEB-INF/queries/FoodMart.xml';
+    $schemaPath='/home/forge/tomcat7/webapps/mondrian/WEB-INF/queries/FoodMart.xml';
     $dom=LoadExcel::loadVirtualCube($schemaPath);
     $virtualCube=$dom->createElement('VirtualCube');
     $virtualCube->setAttribute('name', 'Entreparentesys');

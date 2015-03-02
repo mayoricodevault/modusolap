@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:TitleWindow xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" width="300" height="145"
+			   close="close()"
+			   title="{Localization.ChoosePageOrientation}">
+	<fx:Declarations>
+		<s:RadioButtonGroup id="pageOrientation"/>
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			import com.flexmonster.pivot.model.export.ExportType;
+			import com.flexmonster.pivot.vo.ExportOptions;
+			
+			import localizations.Localization;
+			
+			import mx.managers.PopUpManager;
+			
+			public var onApplyCallback:Function;
+			
+			private function close():void {
+				PopUpManager.removePopUp(this);
+			}
+			
+			private function onApply(event:MouseEvent):void {
+				if (this.onApplyCallback != null) {
+					var options:ExportOptions = new ExportOptions();
+					options.pageOrientation = String(this.pageOrientation.selectedValue);
+					this.onApplyCallback(ExportType.PDF, options);
+				}
+				this.close();
+			}
+		]]>
+	</fx:Script>
+	<s:VGroup verticalCenter="0" left="15">
+		<s:RadioButton label="{Localization.Portrait}" groupName="pageOrientation" value="portrait" selected="true"/>
+		<s:RadioButton label="{Localization.Landscape}" groupName="pageOrientation" value="landscape"/>
+	</s:VGroup>
+	
+	<s:controlBarContent>
+		<s:Button id="applyBtn" label="{Localization.Apply}" click="onApply(event)"
+				  useHandCursor="true" buttonMode="true" enabled="{this.pageOrientation.selectedValue != null}"/>
+		<s:Button id="cancelBtn" label="{Localization.Cancel}" click="close()"
+				  useHandCursor="true" buttonMode="true"/>
+	</s:controlBarContent>
+	
+</s:TitleWindow>

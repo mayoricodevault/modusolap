@@ -1,0 +1,55 @@
+<config>
+  <dataSource type="CSV">
+    <browseForFile>false</browseForFile>
+    <filename>../data/data.csv</filename>
+  </dataSource>
+  <defaultSlice>
+    <axes>
+      <axis name="rows">
+        <hierarchy sort="asc">
+          <dimensionName>[Country]</dimensionName>
+          <hierarchyName>[Country].[Country]</hierarchyName>
+        </hierarchy>
+        <hierarchy>
+          <dimensionName>[Measures]</dimensionName>
+          <hierarchyName>[Measures]</hierarchyName>
+        </hierarchy>
+      </axis>
+      <axis name="columns">
+        <hierarchy sort="asc">
+          <dimensionName>[Color]</dimensionName>
+          <hierarchyName>[Color].[Color]</hierarchyName>
+        </hierarchy>
+      </axis>
+    </axes>
+    <hierarchies/>
+    <measures>
+      <measure aggregation="sum">[Measures].[Price]</measure>
+      <measure aggregation="sum">[Measures].[Discount]</measure>
+    </measures>
+  </defaultSlice>
+  <style source="basic"/>
+  <view/>
+  <conditions>
+    <condition measure="[Measures].[Discount]">
+      <![CDATA[if(AND(#value > 2000, #value < 4000), 'trueStyle')]]>
+      <trueStyle><![CDATA[{"backgroundColor":"0xff9966","fontSize":"13","fontFamily":"Tahoma","color":"0xffffff"}]]></trueStyle>
+      <falseStyle><![CDATA[{}]]></falseStyle>
+    </condition>
+  </conditions>
+  <params>
+	<param name="localSettingsURL">../localizations/loc-br.xml</param>
+  </params>
+  <format name="currency">
+    <param name="decimalPlaces">3</param>
+    <param name="maxDecimalPlaces">2</param>
+    <param name="columnDecimals">false</param>
+    <param name="maxSymbols">20</param>
+    <param name="currencySymbolAlign">left</param>
+    <param name="thousandsSeparator"><![CDATA[ ]]></param>
+    <param name="decimalSeparator"><![CDATA[.]]></param>
+    <param name="currencySymbol"><![CDATA[$]]></param>
+    <param name="nullValue"><![CDATA[no value]]></param>
+    <param name="infinityValue"><![CDATA[Infinity]]></param>
+  </format>
+</config>

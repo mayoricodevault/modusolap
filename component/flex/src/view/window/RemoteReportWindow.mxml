@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:TitleWindow xmlns:fx="http://ns.adobe.com/mxml/2009"
+		 xmlns:s="library://ns.adobe.com/flex/spark"
+		 xmlns:mx="library://ns.adobe.com/flex/mx"
+		 title="{Localization.OpenRemoteReport}"
+		 close="close()">	
+	<fx:Script>
+		<![CDATA[
+			import localizations.Localization;
+			
+			import mx.managers.PopUpManager;
+			
+			public var onOpenCallback:Function;
+			
+			private function onCloseClick(event:MouseEvent):void
+			{
+				close();
+			}
+			
+			private function onOpenClick(event:MouseEvent):void
+			{
+				onOpenCallback(txtUrl.text);
+				close();
+			}
+			
+			public function close():void
+			{
+				PopUpManager.removePopUp(this);
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<s:controlBarContent>
+		<s:Button label="{Localization.Open}" buttonMode="true" click="onOpenClick(event)"/>
+		<s:Button label="{Localization.Cancel}" buttonMode="true" click="onCloseClick(event)"/>
+	</s:controlBarContent>
+	<s:VGroup paddingBottom="10" paddingLeft="10" paddingRight="10" paddingTop="10">
+		<s:TextInput id="txtUrl" width="300" prompt="URL to CSV data"
+					 text="http://www.flexmonster.com/download/report.xml"
+					 textAlign="left"/>
+	</s:VGroup>
+</s:TitleWindow>

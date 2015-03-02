@@ -1,0 +1,103 @@
+/* CSS file */
+@namespace s "library://ns.adobe.com/flex/spark";
+@namespace mx "library://ns.adobe.com/flex/mx";
+@namespace view "view.*";
+@namespace control "view.control.*";
+@namespace layout "view.layout.*";
+
+s|Application, s|Label
+{
+	color: #000;
+}
+
+view|ToolbarView {
+	bottomBorderColor: #88b78a;
+	topBorderColor: #88b78a;
+	backgroundColor: #FFFFFF;
+}
+
+control|ButtonTab, control|DropdownTab {
+	rollOverColor: #d8e3d8;
+}
+
+layout|DottedHLine, layout|DottedVLine {
+	color: #88b78a;
+}
+
+layout|HLine {
+	color: #88b78a;
+}
+
+s|List
+{
+	rollOverColor: #d8e3d8;
+	selectionColor: #d8e3d8;
+}
+
+s|TitleWindow
+{
+	backgroundColor: #ffffff;
+	borderColor: #88b78a;
+	shadowColor: #d8e3d8;
+}
+
+s|TextInput, s|TextArea
+{
+	backgroundColor: #ffffff;
+	shadowColor: #e0d6cd;
+	borderColor: #4c7e4e;
+}
+
+s|Button
+{
+	backgroundColor: #ffffff;
+	borderColor: #88b78a;
+}
+
+s|Button.dropDownButton
+{
+	borderColor: #4c7e4e;
+}
+
+s|Button.halfButton
+{
+	borderColor: #4c7e4e;
+	color: #7F7F7F;
+}
+
+s|Button.removeButton
+{
+	fillColor: #88b78a;
+	symbolColor: #ffffff;
+}
+
+control|TabMenuList 
+{
+	topBorderColor: #88b78a;
+	borderColor: #88b78a;
+	backgroundColor: #ffffff;
+	shadowColor: #d8e3d8;
+}
+
+mx|ColorPicker
+{
+	skin: Embed('../assets/icon/colorPicker/txtCpIconEmerald.png');
+}
+
+mx|ColorPicker.backgroundColorPicker
+{
+	skin: Embed('../assets/icon/colorPicker/bgCpIconEmerald.png');
+}
+
+.colorPickerSwatch
+{
+	borderColor: #4c7e4e;
+	backgroundColor: #ffffff;
+}
+
+s|DropDownList
+{
+	symbolColor: #4c7e4e;
+	borderColor: #4c7e4e;
+	backgroundColor: #ffffff;
+}

@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Pivot HTML5 API</title>
+    <style>
+      html, body {
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+</head>
+<body>
+    <div id="pivotContainer"></div>
+    <script type="text/javascript" src="flexmonster/flexmonster.js"></script> 
+    <script type="text/javascript">
+		//NOTE:
+		//To show HTML5 Pivot component demo on the local computer from the folder where it is downloaded, we used remote report in configUrl and set licenseKey inline. 
+		//When you put Pivot component on your web server, you will be able to replace configUrl with relative URL and licenseKey could be removed from here - it will be taken from flexmonsterpivottablekey.txt.
+		//Please see below the commented flexmonster.embedPivotComponent() which works on web server
+		//flexmonster.embedPivotComponent("flexmonster/", "pivotContainer", "100%", "535", 
+		//	{configUrl: "report.xml"}, 
+		//	"html5", true);
+		flexmonster.embedPivotComponent("flexmonster/", "pivotContainer", "100%", "535", 
+			{configUrl: "http://www.flexmonster.com/reports/report.xml", licenseKey: "Z54N-642CV4-3U1G-0J6X-0K1Y-6W2K-0J4C-3600-4T2P-0H4U-23"}, 
+			"html5", true);
+
+	</script>
+	<img src='http://www.flexmonster.com/icons.ashx?r=demo-html5-01' style="display:none;"/>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx"
+		 buttonMode="true" mouseChildren="false"
+		 minWidth="56" minHeight="76" 
+		 added="onAdded(event)" 
+		 currentState="up">
+	<fx:Script>
+		<![CDATA[
+			[Bindable] public var label:String = "Label";
+			[Bindable] public var icon:Object;
+			
+			public var toggle:Boolean = false;
+			
+			protected function onAdded(event:Event):void
+			{
+				setHandlers();
+			}
+			
+			protected function setHandlers():void
+			{
+				this.addEventListener(MouseEvent.CLICK, onMouseHandler);
+				this.addEventListener(MouseEvent.ROLL_OVER, onMouseHandler);
+				this.addEventListener(MouseEvent.ROLL_OUT, onMouseHandler);
+			}
+			
+			protected function onMouseHandler(event:MouseEvent):void
+			{
+				switch(event.type) {
+					case MouseEvent.CLICK:
+						if (toggle) selected = !selected;
+						break;
+					case MouseEvent.ROLL_OVER:
+						if (!selected) this.currentState = "over";
+						break;
+					case MouseEvent.ROLL_OUT:
+						if (!selected) this.currentState = "up";
+						break;
+				}
+			}
+			
+			public function get selected():Boolean
+			{
+				return (this.currentState == "selected");
+			}
+			
+			public function set selected(value:Boolean):void
+			{
+				this.currentState = value ? "selected" : "up";
+			}
+		]]>
+	</fx:Script>
+	<s:states>
+		<s:State name="up"/>
+		<s:State name="over"/>
+		<s:State name="selected"/>
+	</s:states>
+	
+	<s:Rect id="fill" left="0" right="0" top="0" bottom="0">
+		<s:fill>
+			<s:SolidColor color="{getStyle('rollOverColor')}" alpha="1" alpha.up="0"/>
+		</s:fill>
+	</s:Rect>
+	
+	<s:Image id="imgIcon" horizontalCenter="0" source="{icon}" top="10" mouseEnabled="false"/>
+	<s:Label id="txtLabel" left="0" right="0" top="45" bottom="1" color="{getStyle('color')}" fontSize="11"
+			 mouseEnabled="false" text="{label}" textAlign="center" verticalAlign="middle"/>
+</s:Group>

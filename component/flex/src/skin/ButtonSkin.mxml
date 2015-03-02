@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark" 
+		xmlns:mx="library://ns.adobe.com/flex/mx"
+		width="80" height="32" xmlns:utils="utils.*" xmlns:layout="view.layout.*">
+	<!-- host component -->
+	<fx:Metadata>
+		/** 
+		* @copy spark.skins.spark.ApplicationSkin#hostComponent
+		*/
+		[HostComponent("spark.components.Button")]
+	</fx:Metadata>
+	
+	<!-- states -->
+	<s:states>
+		<s:State name="disabled" />
+		<s:State name="down" />
+		<s:State name="over" />
+		<s:State name="up" />
+	</s:states>
+	
+	<!-- fill -->
+	<!--- @private -->
+	<s:Rect id="fill" left="1" right="0" top="0" bottom="0">
+		<s:fill>
+			<s:SolidColor color="{getStyle('backgroundColor')}" alpha="1"
+						  color.over="{getStyle('borderColor')}" alpha.over=".2"
+						  color.down="{getStyle('borderColor')}" alpha.down=".8"/>
+		</s:fill>
+	</s:Rect>
+	
+	<!-- border -->
+	<!--- @private -->
+	<layout:DottedVLine left="0" top="0" bottom="0"/>
+	
+	<!--- @copy spark.components.supportClasses.ButtonBase#labelDisplay  -->
+	<s:Label id="labelDisplay"
+			 textAlign="center"
+			 maxDisplayedLines="1"
+			 horizontalCenter="0" verticalCenter="1" verticalAlign="middle"
+			 lineHeight="{getStyle('lineHeight')}" left="10" right="10" top="2" bottom="2" 
+			 fontSize="{getStyle('fontSize')}" color="{getStyle('color')}" alpha="1"
+			 alpha.disabled="0.5">
+	</s:Label>
+</s:Skin>

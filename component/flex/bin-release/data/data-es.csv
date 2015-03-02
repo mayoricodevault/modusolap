@@ -1,0 +1,100 @@
+﻿Categoría,Tamaño,Color,Destino,Tipo de Negocio,País,Precio,Cantidad,Descuento
+Accesorios,262 oz,rojo,Australia,Especialidad Bike Shop,Australia,174,225,23
+Accesorios,214 oz,amarillo,Canadá,Especialidad Bike Shop,Canadá,502,90,17
+Accesorios,147 oz,blanco,Francia,Especialidad Bike Shop,Francia,242,855,37
+Accesorios,112 oz,amarillo,Alemania,Especialidad Bike Shop,Alemania,102,897,42
+Accesorios,256 oz,rojo,Reino Unido,Especialidad Bike Shop,Reino Unido,126,115,44
+Accesorios,278 oz,amarillo,Estados Unidos,Especialidad Bike Shop,Estados Unidos,1246,88,47
+Accesorios,8 oz,verde,Australia,Distribuidor de Valor Añadido,Australia,680,66,80
+Accesorios,181 oz,amarillo,Canadá,Distribuidor de Valor Añadido,Canadá,1241,939,66
+Accesorios,344 oz,amarillo,Francia,Distribuidor de Valor Añadido,Francia,150,67,30
+Accesorios,291 oz,rojo,Alemania,Distribuidor de Valor Añadido,Alemania,244,963,22
+Accesorios,126 oz,amarillo,Reino Unido,Distribuidor de Valor Añadido,Reino Unido,501,556,9
+Accesorios,317 oz,rojo,Estados Unidos,Distribuidor de Valor Añadido,Estados Unidos,4960,898,41
+Accesorios,124 oz,amarillo,Australia,Almacén,Australia,9,578,8
+Accesorios,23 oz,rojo,Canadá,Almacén,Canadá,3655,64,70
+Accesorios,124 oz,verde,Francia,Almacén,Francia,1654,556,95
+Accesorios,310 oz,amarillo,Alemania,Almacén,Alemania,1190,292,36
+Accesorios,277 oz,rojo,Reino Unido,Almacén,Reino Unido,1222,730,38
+Accesorios,47 oz,blanco,Estados Unidos,Almacén,Estados Unidos,7941,73,53
+Bicicletas,264 oz,blanco,Australia,Especialidad Bike Shop,Australia,6829,19,56
+Bicicletas,76 oz,rojo,Canadá,Especialidad Bike Shop,Canadá,1664,19,75
+Bicicletas,217 oz,rojo,Francia,Especialidad Bike Shop,Francia,2995,98,88
+Bicicletas,251 oz,verde,Alemania,Especialidad Bike Shop,Alemania,1487,96,100
+Bicicletas,292 oz,verde,Reino Unido,Especialidad Bike Shop,Reino Unido,9245,51,29
+Bicicletas,266 oz,verde,Estados Unidos,Especialidad Bike Shop,Estados Unidos,9008,76,66
+Bicicletas,198 oz,verde,Australia,Distribuidor de Valor Añadido,Australia,9376,92,7
+Bicicletas,109 oz,rojo,Canadá,Distribuidor de Valor Añadido,Canadá,1531,56,31
+Bicicletas,54 oz,amarillo,Francia,Distribuidor de Valor Añadido,Francia,5421,83,22
+Bicicletas,93 oz,rojo,Alemania,Distribuidor de Valor Añadido,Alemania,6975,73,41
+Bicicletas,297 oz,azul,Reino Unido,Distribuidor de Valor Añadido,Reino Unido,4320,59,100
+Bicicletas,339 oz,rojo,Australia,Distribuidor de Valor Añadido,Estados Unidos,3200,27,41
+Bicicletas,205 oz,azul,Canadá,Almacén,Australia,6688,22,41
+Bicicletas,226 oz,azul,Francia,Almacén,Canadá,699,22,42
+Bicicletas,311 oz,púrpura,Alemania,Almacén,Francia,5403,75,70
+Bicicletas,282 oz,rojo,Reino Unido,Almacén,Alemania,6377,28,49
+Bicicletas,286 oz,azul,Estados Unidos,Almacén,Reino Unido,2471,93,14
+Bicicletas,100 oz,azul,Australia,Almacén,Estados Unidos,6650,40,4
+Ropa,218 oz,amarillo,Canadá,Especialidad Bike Shop,Australia,865,4513,70
+Ropa,216 oz,azul,Francia,Especialidad Bike Shop,Canadá,511,4615,20
+Ropa,284 oz,azul,Alemania,Especialidad Bike Shop,Francia,981,1854,36
+Ropa,325 oz,azul,Reino Unido,Especialidad Bike Shop,Alemania,57,1187,10
+Ropa,192 oz,blanco,Estados Unidos,Especialidad Bike Shop,Reino Unido,675,1527,38
+Ropa,25 oz,púrpura,Australia,Especialidad Bike Shop,Estados Unidos,40,4342,72
+Ropa,95 oz,rojo,Canadá,Distribuidor de Valor Añadido,Australia,400,8975,63
+Ropa,39 oz,púrpura,Francia,Distribuidor de Valor Añadido,Canadá,971,3522,90
+Ropa,36 oz,verde,Alemania,Distribuidor de Valor Añadido,Francia,357,3939,93
+Ropa,208 oz,rojo,Reino Unido,Distribuidor de Valor Añadido,Alemania,820,3560,40
+Ropa,3 oz,blanco,Estados Unidos,Distribuidor de Valor Añadido,Reino Unido,520,3892,32
+Ropa,147 oz,blanco,Australia,Distribuidor de Valor Añadido,Estados Unidos,448,3906,24
+Ropa,68 oz,rojo,Reino Unido,Almacén,Australia,513,9790,40
+Ropa,267 oz,azul,Estados Unidos,Almacén,Canadá,977,6107,8
+Ropa,33 oz,verde,Australia,Almacén,Francia,118,4718,84
+Ropa,319 oz,azul,Canadá,Almacén,Alemania,161,7988,29
+Ropa,326 oz,verde,Francia,Almacén,Reino Unido,239,840,89
+Ropa,184 oz,verde,Alemania,Almacén,Estados Unidos,327,6574,79
+Componentes,255 oz,rojo,Reino Unido,Especialidad Bike Shop,Australia,284,2471,42
+Componentes,144 oz,verde,Estados Unidos,Especialidad Bike Shop,Canadá,827,4772,26
+Componentes,283 oz,rojo,Australia,Especialidad Bike Shop,Francia,967,1646,42
+Componentes,299 oz,azul,Reino Unido,Especialidad Bike Shop,Alemania,569,6568,58
+Componentes,88 oz,azul,Estados Unidos,Especialidad Bike Shop,Reino Unido,156,7585,35
+Componentes,161 oz,rojo,Australia,Especialidad Bike Shop,Estados Unidos,845,4208,42
+Componentes,242 oz,azul,Canadá,Distribuidor de Valor Añadido,Australia,838,6460,41
+Componentes,25 oz,rojo,Francia,Distribuidor de Valor Añadido,Canadá,51,410,97
+Componentes,317 oz,azul,Alemania,Distribuidor de Valor Añadido,Francia,95,2307,64
+Componentes,295 oz,rojo,Francia,Distribuidor de Valor Añadido,Alemania,885,6843,10
+Componentes,69 oz,azul,Alemania,Distribuidor de Valor Añadido,Reino Unido,239,7541,36
+Componentes,320 oz,azul,Reino Unido,Distribuidor de Valor Añadido,Estados Unidos,145,7978,78
+Componentes,104 oz,verde,Estados Unidos,Almacén,Australia,605,458,72
+Componentes,34 oz,blanco,Australia,Almacén,Canadá,778,8918,89
+Componentes,194 oz,azul,Canadá,Distribuidor de Valor Añadido,Australia,434,1297,60
+Componentes,340 oz,rojo,Australia,Distribuidor de Valor Añadido,Canadá,732,8420,62
+Componentes,49 oz,azul,Canadá,Distribuidor de Valor Añadido,Francia,780,5535,29
+Componentes,94 oz,rojo,Francia,Distribuidor de Valor Añadido,Alemania,85,2063,98
+Componentes,203 oz,azul,Alemania,Distribuidor de Valor Añadido,Reino Unido,672,316,62
+Componentes,350 oz,azul,Reino Unido,Distribuidor de Valor Añadido,Estados Unidos,389,4900,46
+Componentes,106 oz,verde,Estados Unidos,Almacén,Australia,81,3674,34
+Componentes,348 oz,blanco,Alemania,Almacén,Canadá,959,4819,14
+Componentes,200 oz,verde,Reino Unido,Almacén,Australia,666,780,88
+Componentes,209 oz,blanco,Estados Unidos,Almacén,Canadá,326,7308,29
+Componentes,220 oz,blanco,Australia,Almacén,Francia,550,3635,99
+Componentes,303 oz,azul,Canadá,Almacén,Alemania,192,2895,77
+Componentes,193 oz,blanco,Australia,Almacén,Reino Unido,564,4306,53
+Componentes,53 oz,azul,Canadá,Almacén,Estados Unidos,751,4835,34
+Componentes,276 oz,rojo,Francia,Especialidad Bike Shop,Estados Unidos,960,1492,16
+Componentes,250 oz,azul,Alemania,Distribuidor de Valor Añadido,Australia,908,6235,94
+Componentes,76 oz,rojo,Reino Unido,Distribuidor de Valor Añadido,Canadá,861,6070,62
+Componentes,45 oz,azul,Estados Unidos,Distribuidor de Valor Añadido,Francia,74,3358,9
+Componentes,137 oz,rojo,Australia,Distribuidor de Valor Añadido,Alemania,119,3431,61
+Componentes,270 oz,azul,Canadá,Distribuidor de Valor Añadido,Reino Unido,663,1399,26
+Componentes,129 oz,azul,Francia,Distribuidor de Valor Añadido,Estados Unidos,32,5544,99
+Componentes,34 oz,verde,Alemania,Almacén,Australia,625,7303,2
+Componentes,65 oz,blanco,Reino Unido,Almacén,Canadá,376,879,8
+Componentes,124 oz,azul,Estados Unidos,Distribuidor de Valor Añadido,Australia,622,4345,71
+Componentes,46 oz,rojo,Australia,Distribuidor de Valor Añadido,Canadá,53,6543,65
+Componentes,174 oz,azul,Canadá,Distribuidor de Valor Añadido,Francia,846,3878,60
+Componentes,6 oz,rojo,Francia,Distribuidor de Valor Añadido,Alemania,743,4086,95
+Componentes,131 oz,azul,Alemania,Distribuidor de Valor Añadido,Reino Unido,412,9739,29
+Componentes,186 oz,azul,Reino Unido,Distribuidor de Valor Añadido,Estados Unidos,500,4686,69
+Componentes,173 oz,verde,Estados Unidos,Almacén,Australia,11,521,80
+Componentes,277 oz,blanco,Australia,Almacén,Canadá,624,4697,32

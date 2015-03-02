@@ -1,0 +1,150 @@
+/* CSS file */
+@namespace s "library://ns.adobe.com/flex/spark";
+@namespace mx "library://ns.adobe.com/flex/mx";
+@namespace utils "utils.*";
+@namespace skin "skin.*";
+@namespace view "view.*";
+@namespace layout "view.layout.*";
+@namespace control "view.control.*";
+
+global {
+	modalTransparencyBlur: 0;
+	modalTransparency: 0;
+	modalTransparencyColor: black;
+	modalTransparencyDuration: 100;
+}
+
+s|Application, s|Label
+{
+	fontFamily: "Lucida Sans Unicode";
+	fontSize: 11;
+	color: #333333;
+}
+
+s|Label.formLabel
+{
+	textAlign: right;
+	verticalAlign: middle;
+}
+
+layout|DottedHLine, layout|DottedVLine {
+	color: #dcdcdc;
+}
+
+layout|HLine {
+	color: #cccccc;
+}
+
+view|ToolbarView {
+	skinClass: ClassReference("skin.ToolbarSkin");
+	bottomBorderColor: #cccccc;
+	topBorderColor: #dcdcdc;
+	backgroundColor: #ffffff;
+}
+
+control|ButtonTab, control|DropdownTab {
+	rollOverColor: #e5e5e5;
+}
+
+s|List
+{
+	rollOverColor: #e5e5e5;
+	selectionColor: #e5e5e5;
+}
+
+s|TitleWindow
+{
+	skinClass: ClassReference("skin.TitleWindowSkin");
+	backgroundColor: #ffffff;
+	titleFontSize: 13;
+	borderColor: #c8c8c8;
+	shadowColor: #e6e6e6;
+	shadowAlpha: 0.8;
+}
+
+s|TextInput, s|TextArea
+{
+	backgroundColor: #ffffff;
+	shadowColor: #e6e6e6;
+	borderColor: #999999;
+	focusAlpha: 0;
+}
+
+s|Button
+{
+	skinClass: ClassReference("skin.ButtonSkin");
+	fontSize: 11;
+	lineHeight: 18;
+	backgroundColor: #ffffff;
+	borderColor: #cccccc;
+}
+
+s|Button.dropDownButton
+{
+	skinClass: ClassReference("skin.DropDownButtonSkin");
+	borderColor: #999999;
+}
+
+s|Button.halfButton
+{
+	skinClass: ClassReference("skin.HalfButtonSkin");
+	borderColor: #999999;
+	color: #555555;
+}
+
+s|Button.linkButton
+{
+	skinClass: ClassReference("skin.LinkButtonSkin");
+}
+
+s|Button.removeButton
+{
+	skinClass: ClassReference("skin.RemoveButtonSkin");
+	fillColor: #cccccc;
+	symbolColor: #ffffff;
+}
+
+s|DropDownList
+{
+	skinClass: ClassReference("skin.DropDownSkin");
+	symbolColor: #999999;
+	borderColor: #999999;
+	backgroundColor: #ffffff;
+}
+
+control|TabMenuList 
+{
+	topBorderColor: #cccccc;
+	borderColor: #cccccc;
+	backgroundColor: #ffffff;
+	shadowColor: #e6e6e6;
+	shadowAlpha: 0.8;
+}
+
+s|Label.header-label
+{
+	fontSize: 12;
+}
+
+mx|ColorPicker
+{
+	focusAlpha: 0;
+	skin: Embed('../assets/icon/colorPicker/txtCpIconAsphalt.png');
+	swatchPanelStyleName: colorPickerSwatch;
+}
+
+mx|ColorPicker.backgroundColorPicker
+{
+	skin: Embed('../assets/icon/colorPicker/bgCpIconAsphalt.png');
+}
+
+.colorPickerSwatch
+{
+	borderColor: #999999;
+	backgroundColor: #ffffff;
+}
+
+mx|TextInput
+{
+	focusAlpha: 0;
+}
